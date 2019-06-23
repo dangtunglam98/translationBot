@@ -7,7 +7,7 @@ import './App.css';
 //import { translation } from './translateAPI'
 
 class App extends Component {
-  state = { englishInput: '', trans: {} };
+  state = { englishInput: '', engList : [], viList: []};
 
   updateInput = event => {
     console.log('event.target.value', event.target.value);
@@ -15,12 +15,11 @@ class App extends Component {
   };
 
   viewState = () => {
-    var joinedInput = this.state.trans({[this.state.englishInput]: 'Success'});
-    this.setState({trans : joinedInput});
-
-    // joinedOutput = this.state.viList.concat('Success');
-    // this.setState({ viList: joinedOutput });var
-    // this.setState({englishInput: ''});
+    var joinedInput = this.state.engList.concat(this.state.englishInput);
+    this.setState({engList : joinedInput});
+    var joinedOutput = this.state.viList.concat('Success');
+    this.setState({ viList: joinedOutput });
+    this.setState({englishInput: ''});
   }
 
   render() {
@@ -31,13 +30,20 @@ class App extends Component {
         <InputGroupAddon addonType='append'><Button onClick={this.viewState}>Send!</Button></InputGroupAddon>
       </InputGroup>
       {
-        this.state.trans.map((k,v) => 
-        <div>
-          <Alert color='primary'>User: {k}</Alert>
-          <Alert color='danger'>Bot: {v}</Alert>
-        </div>
-        )
+        this.state.engList.map((engInput) => 
+          <Alert color='primary'>
+            User: {engInput}
+          </Alert>
+          )
       }
+      {
+        this.state.viList.map((viOutput) =>
+          <Alert color='success'>
+            Bot: {viOutput}
+          </Alert>
+          )
+      }
+       
       </div>
     );
     }
