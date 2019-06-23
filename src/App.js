@@ -7,7 +7,7 @@ import './App.css';
 //import { translation } from './translateAPI'
 
 class App extends Component {
-  state = { englishInput: '', engList : [], viList: []};
+  state = { englishInput: '', trans: {} };
 
   updateInput = event => {
     console.log('event.target.value', event.target.value);
@@ -15,22 +15,27 @@ class App extends Component {
   };
 
   viewState = () => {
-    var joined = this.state.engList.concat(this.state.englishInput);
-    this.setState({engList : joined});
+    var joinedInput = this.state.trans({[this.state.englishInput]: 'Success'});
+    this.setState({trans : joinedInput});
+
+    // joinedOutput = this.state.viList.concat('Success');
+    // this.setState({ viList: joinedOutput });var
+    // this.setState({englishInput: ''});
   }
 
   render() {
     return (
       <div>
       <InputGroup>
-        <Input onChange={this.updateInput} />
+        <Input onChange={this.updateInput} value={this.state.englishInput} />
         <InputGroupAddon addonType='append'><Button onClick={this.viewState}>Send!</Button></InputGroupAddon>
       </InputGroup>
       {
-        this.state.engList.map((engInput) => 
-          <Alert color='primary'>
-            User: {engInput}
-          </Alert>
+        this.state.trans.map((k,v) => 
+        <div>
+          <Alert color='primary'>User: {k}</Alert>
+          <Alert color='danger'>Bot: {v}</Alert>
+        </div>
         )
       }
       </div>
