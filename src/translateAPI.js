@@ -1,27 +1,28 @@
+require("dotenv").config();
 
-export default async function translation() {
-    const Translate = require('@google-cloud/translate');
-    const projectId = 'translationbot-1560840064175';
-    const translate = new Translate.Translate({projectId: projectId, })
+module.exports = {
+  translate : async function (new_text ,
+    projectId = process.env.GOOGLE_APPLICATION_CREDENTIALS // Your GCP Project Id
+  ) {
+    // [START translate_quickstart]
+    // Imports the Google Cloud client library
+    const {Translate} = require('@google-cloud/translate');
+
+    // Instantiates a client
+    const translate = new Translate({projectId});
+
+    // The text to translate
+    const text = new_text;
+
+    // The target language
     const target = 'vi';
-    const [translation] = await translate.translate("Hello", target);
-    console.log(`Text: ${"Hello"}`);
+
+    // Translates some text into Russian
+    const [translation] = await translate.translate(text, target);
+    console.log(`Text: ${text}`);
     console.log(`Translation: ${translation}`);
-}
+  }
+};
 
-// const translate = require('google-translate-api');
-
-// export async function translation(text) {
-//     const origin = `en`;
-//     const target = `vn`;
-//     translate(text, {from: origin, to: target}).then(res => {
-//         // console.log(`Text: ${text}`);
-//         // console.log(`Translation: ${res.text}`);
-//         return res.text
-//     }).catch(err =>{
-//         console.error(err);
-//     });
-    
+// var a = function(){
 // }
-
-translation().catch(console.error);

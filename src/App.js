@@ -17,6 +17,8 @@ class App extends Component {
   viewState = () => {
     var joinedInput = this.state.engList.concat(this.state.englishInput);
     this.setState({engList : joinedInput});
+    var trans = require('./translateAPI.js').translate;
+    trans(this.state.englishInput);
     var joinedOutput = this.state.viList.concat('Success');
     this.setState({ viList: joinedOutput });
     this.setState({englishInput: ''});
