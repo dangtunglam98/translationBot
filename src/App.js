@@ -23,7 +23,7 @@ class App extends Component {
 
   translateText = (text) => {
     var googleTranslate = require('google-translate')('AIzaSyACh23Bh3U3vL-Zb7MXqpvf-HhDdian-6E');
-    if(text == ""){
+    if(text === ""){
       var joinedOutput = this.state.viList.concat('Please enter some text (Bạn hãy nhập gì đó đi)');
       this.setState({viList : joinedOutput});
     } else {
@@ -45,12 +45,16 @@ class App extends Component {
       {
         this.state.engList.map((engInput, viOutput) => 
           <div>
-          <Alert color='primary'>
-            User: {engInput}
-          </Alert>
-          <Alert color='success'>
-            Bot: {this.state.viList[viOutput]};
-          </Alert>
+            <div className='user'>
+              <Alert color='primary'>
+                User: {engInput}
+              </Alert>
+            </div>
+            <div className='bot'>
+              <Alert color='success'>
+                Bot: {this.state.viList[viOutput]};
+              </Alert>
+            </div>
           </div>
           )
       }
