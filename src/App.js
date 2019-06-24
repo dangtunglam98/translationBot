@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {Input , Button, InputGroup, InputGroupAddon, Alert} from 'reactstrap';
-//import logo from './logo.svg';
 import './App.css';
-//import { async } from 'q';
-// import translate from './translateAPI';
-// import Translate from '@google-cloud/translate';
+
 class App extends Component {
   state = { englishInput: '', engList : [], viList: []};
   constructor(props){
@@ -26,10 +23,15 @@ class App extends Component {
 
   translateText = (text) => {
     var googleTranslate = require('google-translate')('AIzaSyACh23Bh3U3vL-Zb7MXqpvf-HhDdian-6E');
+    if(text == ""){
+      var joinedOutput = this.state.viList.concat('Please enter some text (Bạn hãy nhập gì đó đi)');
+      this.setState({viList : joinedOutput});
+    } else {
     googleTranslate.translate(text, 'en', 'vi', (err, translation) => {
-      var joinedOutput = this.state.viList.concat(translation.translatedText)
-      this.setState({viList : joinedOutput})
+      var joinedOutput = this.state.viList.concat(translation.translatedText);
+      this.setState({viList : joinedOutput});
     });
+  }
 
 }
 
