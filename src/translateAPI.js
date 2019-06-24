@@ -1,9 +1,11 @@
+
 require("dotenv").config();
 
-module.exports = {
-  translate : async function (new_text ,
+const translate =  async function (new_text ,
     projectId = process.env.GOOGLE_APPLICATION_CREDENTIALS // Your GCP Project Id
   ) {
+    try 
+    {
     // [START translate_quickstart]
     // Imports the Google Cloud client library
     const {Translate} = require('@google-cloud/translate');
@@ -18,11 +20,15 @@ module.exports = {
     const target = 'vi';
 
     // Translates some text into Russian
+    
     const [translation] = await translate.translate(text, target);
-    console.log(`Text: ${text}`);
-    console.log(`Translation: ${translation}`);
+    console.log(typeof(translation))
+    return translation;
+  } catch(err) {
+      console.log(err)
   }
-};
+}
+export default translate;
 
 // var a = function(){
 // }
